@@ -1253,10 +1253,10 @@ static bool open_devices(udev_input_t *udev,
          if (fd != -1)
          {
             int check = udev_input_add_device(udev, type, devnode, cb);
-            if (!check && check != -1 )
-               RARCH_DBG("[udev] udev_input_add_device error : %s (%s).\n",
+            if (check == 0)
+               RARCH_LOG("[udev] udev_input_add_device error : %s (%s).\n",
                      devnode, strerror(errno));
-            else if (check != -1 && check != 0)  
+            else if (check == 1 )  
             {
                char ident[255];
                if (ioctl(fd, EVIOCGNAME(sizeof(ident)), ident) < 0)
@@ -1269,7 +1269,7 @@ static bool open_devices(udev_input_t *udev,
                      devnode);
                    device_keyboard++;
                }                     
-               else
+               else if (type == UDEV_INPUT_MOUSE || type== UDEV_INPUT_TOUCHPAD)
                {
                   RARCH_LOG("[udev]: Added Device mouse#%d %s (%s) .\n",
                      device_mouse,
