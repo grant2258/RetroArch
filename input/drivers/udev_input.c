@@ -253,8 +253,7 @@ static udev_input_mouse_t *udev_get_mouse(
 
 static void udev_mouse_set_x(udev_input_mouse_t *mouse, int32_t x, bool abs)
 {
- RARCH_WARN("[udev]: abs = %d\n ",abs);
-   video_viewport_t vp;
+    video_viewport_t vp;
 
    if (abs)
    {
@@ -557,8 +556,8 @@ static int udev_input_add_device(udev_input_t *udev,
           if (ioctl(fd, EVIOCGABS(ABS_Y), &absinfo) == -1)
               return 0;
           device->mouse.y_min = absinfo.minimum;
-          device->mouse.x_max = absinfo.maximum;
-    } /* if */
+          device->mouse.y_max = absinfo.maximum;
+      } 
 
    }
 
